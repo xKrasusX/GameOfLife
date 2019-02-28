@@ -12,17 +12,22 @@ private:
 
     void fillWithDeadCells();
     bool getRandomBool();
+    bool **calculateStateChanges(int neighborhoodType);
+    int countAliveNeighbors(int h, int w, int neighborhoodType);
 
 public:
     Board();
-    Board(int height, int width, Board currentBoard);
-    void clearBoard();
-    void revertBoard();
-    void randomizeBoard();
+    void changeSize(int height, int width);
+    void makeEmpty();
+    void revert();
+    void revertField(int h, int w);
+    void randomize();
+    void updateNextStep(int neighborhoodType);
 
 
 
-    void printBoard(); //TODO delete this
+
+    void printAll(); //TODO delete this
 };
 
 #endif
