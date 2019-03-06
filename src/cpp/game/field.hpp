@@ -4,13 +4,13 @@
 class Field
 {
 
-private:
-    bool isAlive;
-
 public:
     Field(bool isAlive = false);
     bool getIsAlive();
     void setIsAlive(bool isAlive);
+
+private:
+    bool isAlive;
 };
 
 #endif

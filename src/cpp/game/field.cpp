@@ -1,8 +1,4 @@
-#include <iostream> //TODO delete this
-
-#include "Field.hpp"
-
-using namespace std; //TODO delete this
+#include "field.hpp"
 
 Field::Field(bool isAlive)
 {

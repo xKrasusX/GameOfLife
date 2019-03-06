@@ -1,12 +1,21 @@
-//TODO implement foreach
 #include <cstdlib>
+
+#include "board.hpp"
+#include "../static/neighborhoodtype.hpp"
+
 #include <iostream> //TODO delete this
-#include <new>
-
-#include "Board.hpp"
-#include "../static/NeighborhoodType.hpp"
-
 using namespace std; //TODO delete this
+
+void Board::print() {
+    for(int i=0; i<height; i++) {
+        for(int j=0; j<width; j++) {
+            string str = fields[i][j].getIsAlive() ? "X" : ".";
+            cout << str;
+        }
+        cout << endl;
+    }
+    cout << endl;
+}
 
 Board::Board()
 {
@@ -64,6 +73,14 @@ void Board::updateNextStep(int neighborhoodType) {
                 revertField(i, j);
 }
 
+int Board::getHeight() {
+    return height;
+}
+
+int Board::getWidth() {
+    return width;
+}
+
 void Board::fillWithDeadCells() {
     fields = new Field*[height];
     for(int i=0; i<height; i++)
@@ -111,19 +128,4 @@ int Board::countAliveNeighbors(int h, int w, int neighborhoodType) {
         if(fields[hAfter][wAfter].getIsAlive())    aliveNeighbors++;
     }
     return aliveNeighbors;
-}
-
-
-
-
-
-
-void Board::printAll() { //TODO delete this
-    for(int i=0; i<height; i++) {
-        for(int j=0; j<width; j++) {
-            string str = fields[i][j].getIsAlive() ? "X" : ".";
-            cout << str;
-        }
-        cout << endl;
-    }
 }

@@ -1,7 +1,6 @@
 #ifndef NEIGHBORHOODTYPE_H
 #define NEIGHBORHOODTYPE_H
 
-
 class NeighborhoodType
 {
 
@@ -10,4 +9,4 @@ public:
     static const int MOORE = 1;
 };
 
-#endif
+#endif // NEIGHBORHOODTYPE_H
