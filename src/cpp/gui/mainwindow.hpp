@@ -25,6 +25,7 @@ private slots:
     void on_buttonRandomize_released();
     void on_spinBoxHeight_editingFinished();
     void on_spinBoxWidth_editingFinished();
+    void on_buttonLoad_released();
 
 private:
     BoardManager *manager;

@@ -19,7 +19,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_radioVonN_released()
 {
     manager->setNeighborhoodType(NeighborhoodType::VON_NEUMANN);
-    manager->readBoardFromFile("P:/1Marcin/Tymczasowe/tmp.txt");
 }
 
 void MainWindow::on_radioMoore_released()
@@ -55,4 +54,9 @@ void MainWindow::on_spinBoxWidth_editingFinished()
 {
     manager->changeBoardWidth(ui->spinBoxWidth->value());
     manager->getBoard()->print();
+}
+
+void MainWindow::on_buttonLoad_released()
+{
+    manager->readBoardFromFile("P:/1Marcin/Tymczasowe/tmp.txt");
 }
