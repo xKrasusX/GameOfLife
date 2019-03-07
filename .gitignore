@@ -31,7 +31,6 @@
 *.out
 *.app
 
-# Code::Blocks project
-*.cbp
-*.depend
-*.layout
+# Qt Creator project
+*.pro
+*.pro.user
