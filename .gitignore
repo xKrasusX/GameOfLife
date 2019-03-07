@@ -32,5 +32,4 @@
 *.app
 
 # Qt Creator project
-*.pro
 *.pro.user
