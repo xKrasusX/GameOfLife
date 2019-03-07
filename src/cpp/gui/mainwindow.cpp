@@ -2,7 +2,6 @@
 #include "ui_mainwindow.h"
 #include "../static/neighborhoodtype.hpp"
 
-
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -58,5 +57,19 @@ void MainWindow::on_spinBoxWidth_editingFinished()
 
 void MainWindow::on_buttonLoad_released()
 {
-    manager->readBoardFromFile("P:/1Marcin/Tymczasowe/tmp.txt");
+    manager->readBoardFromFile("C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmp.txt");
+    ui->spinBoxHeight->setValue(manager->getBoard()->getHeight());
+    ui->spinBoxWidth->setValue(manager->getBoard()->getWidth());
+    manager->getBoard()->print();
+}
+
+void MainWindow::on_buttonSave_released()
+{
+    manager->saveBoardToFile("C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmpSave.txt");
+}
+
+void MainWindow::on_buttonPlusOne_released()
+{
+    manager->updateBoard();
+    manager->getBoard()->print();
 }

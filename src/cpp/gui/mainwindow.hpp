@@ -26,6 +26,8 @@ private slots:
     void on_spinBoxHeight_editingFinished();
     void on_spinBoxWidth_editingFinished();
     void on_buttonLoad_released();
+    void on_buttonSave_released();
+    void on_buttonPlusOne_released();
 
 private:
     BoardManager *manager;

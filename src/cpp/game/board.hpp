@@ -17,10 +17,10 @@ public:
     void revertField(int h, int w);
     void randomize();
     void updateNextStep(int neighborhoodType);
+    bool isFieldAlive(int h, int w);
     int getHeight();
     int getWidth();
-
-    void print();
+    void print(); //TODO delete
 
 private:
     int height, width;

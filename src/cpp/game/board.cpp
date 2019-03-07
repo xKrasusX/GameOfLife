@@ -73,6 +73,10 @@ void Board::updateNextStep(int neighborhoodType) {
                 revertField(i, j);
 }
 
+bool Board::isFieldAlive(int h, int w) {
+    return fields[h][w].getIsAlive();
+}
+
 int Board::getHeight() {
     return height;
 }

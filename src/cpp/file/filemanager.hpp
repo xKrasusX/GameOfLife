@@ -3,12 +3,15 @@
 
 #include <string>
 
+#include "boarddata.hpp"
+
 class FileManager
 {
 
 public:
     FileManager();
-    void testRead(std::string path);
+    BoardData *readFromFile(std::string path);
+    void saveToFile(BoardData *boardData, std::string path);
 };
 
 #endif // FILEMANAGER_HPP
