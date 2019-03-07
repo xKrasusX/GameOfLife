@@ -57,7 +57,7 @@ void MainWindow::on_spinBoxWidth_editingFinished()
 
 void MainWindow::on_buttonLoad_released()
 {
-    manager->readBoardFromFile("C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmp.txt");
+    manager->readBoardFromFile("P:/1Marcin/Tymczasowe/tmp.txt"); //C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmp.txt
     ui->spinBoxHeight->setValue(manager->getBoard()->getHeight());
     ui->spinBoxWidth->setValue(manager->getBoard()->getWidth());
     manager->getBoard()->print();
@@ -65,7 +65,7 @@ void MainWindow::on_buttonLoad_released()
 
 void MainWindow::on_buttonSave_released()
 {
-    manager->saveBoardToFile("C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmpSave.txt");
+    manager->saveBoardToFile("P:/1Marcin/Tymczasowe/tmpSave.txt"); //C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmpSave.txt
 }
 
 void MainWindow::on_buttonPlusOne_released()

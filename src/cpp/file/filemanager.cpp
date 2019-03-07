@@ -3,9 +3,6 @@
 #include "filemanager.hpp"
 #include "../static/boardsize.hpp"
 
-#include <iostream> //TODO delete this
-using namespace std; //TODO delete this
-
 FileManager::FileManager()
 {
 
@@ -20,7 +17,6 @@ BoardData *FileManager::readFromFile(std::string path) {
 
     std::ifstream file(path);
     while(isCorrect && file >> h >> w) {
-        cout << h << " " << w << endl;
         if(line == 0) {
             if(h<1 || h>BoardSize::MAX_HEIGHT || w<1 || w>BoardSize::MAX_WIDTH) {
                 isCorrect = false;
@@ -43,5 +39,8 @@ BoardData *FileManager::readFromFile(std::string path) {
 }
 
 void FileManager::saveToFile(BoardData *boardData, std::string path) {
-
+    std::ofstream file(path);
+    file << boardData->getHeight() << " " << boardData->getWidth() << std::endl;
+    for(const auto& p : boardData->getAliveCells())
+        file << p.first << " " << p.second << std::endl;
 }
