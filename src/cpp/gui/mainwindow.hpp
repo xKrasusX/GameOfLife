@@ -28,11 +28,15 @@ private slots:
     void on_buttonLoad_released();
     void on_buttonSave_released();
     void on_buttonPlusOne_released();
+    void on_buttonStartStop_released();
 
 private:
     BoardManager *manager;
-
     Ui::MainWindow *ui;
+    bool isRunning;
+
+    void setComponentsEnabled(bool enabled);
+    void runGame();
 };
 
 #endif // MAINWINDOW_H

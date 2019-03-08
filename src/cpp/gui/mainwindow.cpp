@@ -1,3 +1,6 @@
+#include <thread>
+#include <chrono>
+
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "../static/neighborhoodtype.hpp"
@@ -8,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     manager = new BoardManager();
+    isRunning = false;
 }
 
 MainWindow::~MainWindow()
@@ -72,4 +76,40 @@ void MainWindow::on_buttonPlusOne_released()
 {
     manager->updateBoard();
     manager->getBoard()->print();
+}
+
+void MainWindow::on_buttonStartStop_released()
+{
+    if(!isRunning) {
+        ui->buttonStartStop->setText("Stop");
+        setComponentsEnabled(false);
+        isRunning = true;
+        //TODO thread run
+    } else {
+        isRunning = false;
+        //TODO thread stop
+        ui->buttonStartStop->setText("Start");
+        setComponentsEnabled(true);
+    }
+}
+
+void MainWindow::setComponentsEnabled(bool enabled) {
+    ui->radioVonN->setEnabled(enabled);
+    ui->radioMoore->setEnabled(enabled);
+    ui->buttonLoad->setEnabled(enabled);
+    ui->buttonSave->setEnabled(enabled);
+    ui->buttonClear->setEnabled(enabled);
+    ui->buttonRevert->setEnabled(enabled);
+    ui->buttonPlusOne->setEnabled(enabled);
+    ui->buttonRandomize->setEnabled(enabled);
+    ui->spinBoxHeight->setEnabled(enabled);
+    ui->spinBoxWidth->setEnabled(enabled);
+}
+
+void MainWindow::runGame() {
+    if(isRunning) {
+        manager->updateBoard();
+        manager->getBoard()->print();
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
 }
