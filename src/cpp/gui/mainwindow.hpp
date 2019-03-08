@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QThread>
 
 #include "../game/boardmanager.hpp"
 
@@ -31,12 +32,21 @@ private slots:
     void on_buttonStartStop_released();
 
 private:
+    class GameThread : public QThread {
+    public:
+        GameThread(MainWindow *w);
+    protected:
+        void run();
+    private:
+        MainWindow *w;
+    };
+
     BoardManager *manager;
     Ui::MainWindow *ui;
     bool isRunning;
+    GameThread *gameThread;
 
     void setComponentsEnabled(bool enabled);
-    void runGame();
 };
 
 #endif // MAINWINDOW_H

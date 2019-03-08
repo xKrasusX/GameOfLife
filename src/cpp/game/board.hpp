@@ -7,7 +7,6 @@ class Board
 {
 
 public:
-
     Board();
     void changeSize(int height, int width);
     void makeEmpty();

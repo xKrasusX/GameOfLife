@@ -16,7 +16,7 @@ public:
     void changeBoardHeight(int height);
     void changeBoardWidth(int width);
     Board *updateBoard();
-    void readBoardFromFile(std::string path);
+    bool readBoardFromFile(std::string path);
     void saveBoardToFile(std::string path);
     Board *getBoard();
     void setNeighborhoodType(int neighborhoodType);

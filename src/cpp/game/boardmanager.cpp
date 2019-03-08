@@ -36,10 +36,13 @@ Board *BoardManager::updateBoard() {
     return board;
 }
 
-void BoardManager::readBoardFromFile(std::string path) {
+bool BoardManager::readBoardFromFile(std::string path) {
     BoardData *boardData = fileManager->readFromFile(path);
-    if(boardData != NULL)
+    if(boardData != NULL) {
         setBoardWithBoardData(boardData);
+        return true;
+    }
+    return false;
 }
 
 void BoardManager::saveBoardToFile(std::string path) {

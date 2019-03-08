@@ -1,3 +1,6 @@
+#include <QFileDialog>
+#include <string>
+
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "../static/neighborhoodtype.hpp"
@@ -9,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     manager = new BoardManager();
     isRunning = false;
+    ui->labelError->setStyleSheet("QLabel {color: red;}");
 }
 
 MainWindow::~MainWindow()
@@ -18,77 +22,112 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_radioVonN_released()
 {
+    ui->labelError->clear();
     manager->setNeighborhoodType(NeighborhoodType::VON_NEUMANN);
 }
 
 void MainWindow::on_radioMoore_released()
 {
+    ui->labelError->clear();
     manager->setNeighborhoodType(NeighborhoodType::MOORE);
 }
 
 void MainWindow::on_buttonClear_released()
 {
+    ui->labelError->clear();
     manager->clearBoard();
     manager->getBoard()->print();
 }
 
 void MainWindow::on_buttonRevert_released()
 {
+    ui->labelError->clear();
     manager->revertBoard();
     manager->getBoard()->print();
 }
 
 void MainWindow::on_buttonRandomize_released()
 {
+    ui->labelError->clear();
     manager->randomizeBoard();
     manager->getBoard()->print();
 }
 
 void MainWindow::on_spinBoxHeight_editingFinished()
 {
+    ui->labelError->clear();
     manager->changeBoardHeight(ui->spinBoxHeight->value());
     manager->getBoard()->print();
 }
 
 void MainWindow::on_spinBoxWidth_editingFinished()
 {
+    ui->labelError->clear();
     manager->changeBoardWidth(ui->spinBoxWidth->value());
     manager->getBoard()->print();
 }
 
 void MainWindow::on_buttonLoad_released()
 {
-    manager->readBoardFromFile("P:/1Marcin/Tymczasowe/tmp.txt"); //C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmp.txt
-    ui->spinBoxHeight->setValue(manager->getBoard()->getHeight());
-    ui->spinBoxWidth->setValue(manager->getBoard()->getWidth());
-    manager->getBoard()->print();
+    std::string path = QFileDialog::getOpenFileName(this, "Load from file", "C:/", "*.txt").toStdString();
+    if(!path.empty()) {
+        bool readSuccess = manager->readBoardFromFile(path);
+        if(readSuccess) {
+            ui->labelError->clear();
+            ui->spinBoxHeight->setValue(manager->getBoard()->getHeight());
+            ui->spinBoxWidth->setValue(manager->getBoard()->getWidth());
+            manager->getBoard()->print();
+        } else {
+            ui->labelError->setText("Invalid input file");
+        }
+    }
 }
 
 void MainWindow::on_buttonSave_released()
 {
-    manager->saveBoardToFile("P:/1Marcin/Tymczasowe/tmpSave.txt"); //C:/Users/marcin.krasuski/Documents/Marcin/Studia/OKNO/Zaawansowane C++/projekt/tmpSave.txt
+    ui->labelError->clear();
+    std::string path = QFileDialog::getSaveFileName(this, "Save to file", "C:/", "*.txt").toStdString();
+    if(!path.empty()) {
+        manager->saveBoardToFile(path);
+    }
 }
 
 void MainWindow::on_buttonPlusOne_released()
 {
+    ui->labelError->clear();
     manager->updateBoard();
     manager->getBoard()->print();
 }
 
 void MainWindow::on_buttonStartStop_released()
 {
+    ui->labelError->clear();
     if(!isRunning) {
         ui->buttonStartStop->setText("Stop");
         setComponentsEnabled(false);
         isRunning = true;
         repaint();
-        //TODO thread run
+        gameThread = new MainWindow::GameThread(this);
+        gameThread->start();
     } else {
         isRunning = false;
-        //TODO thread stop
+        gameThread->terminate();
+        gameThread->~GameThread();
         ui->buttonStartStop->setText("Start");
         setComponentsEnabled(true);
         repaint();
+    }
+}
+
+MainWindow::GameThread::GameThread(MainWindow *w) {
+    this->w = w;
+}
+
+void MainWindow::GameThread::run() {
+    while(w->isRunning) {
+        w->manager->updateBoard();
+        w->manager->getBoard()->print();
+        msleep(500);
     }
 }
 
@@ -103,12 +142,4 @@ void MainWindow::setComponentsEnabled(bool enabled) {
     ui->buttonRandomize->setEnabled(enabled);
     ui->spinBoxHeight->setEnabled(enabled);
     ui->spinBoxWidth->setEnabled(enabled);
-}
-
-void MainWindow::runGame() {
-    while(isRunning) {
-        manager->updateBoard();
-        manager->getBoard()->print();
-        //sleep(1000)???
-    }
 }
