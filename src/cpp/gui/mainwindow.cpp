@@ -1,6 +1,3 @@
-#include <thread>
-#include <chrono>
-
 #include "mainwindow.hpp"
 #include "ui_mainwindow.h"
 #include "../static/neighborhoodtype.hpp"
@@ -84,12 +81,14 @@ void MainWindow::on_buttonStartStop_released()
         ui->buttonStartStop->setText("Stop");
         setComponentsEnabled(false);
         isRunning = true;
+        repaint();
         //TODO thread run
     } else {
         isRunning = false;
         //TODO thread stop
         ui->buttonStartStop->setText("Start");
         setComponentsEnabled(true);
+        repaint();
     }
 }
 
@@ -107,9 +106,9 @@ void MainWindow::setComponentsEnabled(bool enabled) {
 }
 
 void MainWindow::runGame() {
-    if(isRunning) {
+    while(isRunning) {
         manager->updateBoard();
         manager->getBoard()->print();
-        std::this_thread::sleep_for(std::chrono::seconds(1));
+        //sleep(1000)???
     }
 }
