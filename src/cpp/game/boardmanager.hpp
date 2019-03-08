@@ -10,7 +10,6 @@ class BoardManager
 
 public:
     BoardManager();
-    void setNeighborhoodType(int neighborhoodType);
     void clearBoard();
     void revertBoard();
     void randomizeBoard();
@@ -20,6 +19,7 @@ public:
     void readBoardFromFile(std::string path);
     void saveBoardToFile(std::string path);
     Board *getBoard();
+    void setNeighborhoodType(int neighborhoodType);
 
 private:
     Board *board;

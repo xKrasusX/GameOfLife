@@ -7,8 +7,6 @@ class Board
 {
 
 public:
-    static const int MAX_HEIGHT = 99;
-    static const int MAX_WIDTH = 99;
 
     Board();
     void changeSize(int height, int width);

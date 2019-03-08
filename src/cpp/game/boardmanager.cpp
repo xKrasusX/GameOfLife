@@ -11,10 +11,6 @@ BoardManager::BoardManager()
     fileManager = new FileManager();
 }
 
-void BoardManager::setNeighborhoodType(int neighborhoodType) {
-    this->neighborhoodType = neighborhoodType;
-}
-
 void BoardManager::clearBoard() {
     board->makeEmpty();
 }
@@ -53,6 +49,10 @@ void BoardManager::saveBoardToFile(std::string path) {
 
 Board *BoardManager::getBoard() {
     return board;
+}
+
+void BoardManager::setNeighborhoodType(int neighborhoodType) {
+    this->neighborhoodType = neighborhoodType;
 }
 
 void BoardManager::setBoardWithBoardData(BoardData *boardData) {
