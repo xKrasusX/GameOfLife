@@ -31,7 +31,9 @@ SOURCES += \
     src/cpp/game/field.cpp \
     src/cpp/game/boardmanager.cpp \
     src/cpp/file/filemanager.cpp \
-    src/cpp/file/boarddata.cpp
+    src/cpp/file/boarddata.cpp \
+    src/cpp/gui/labelcell.cpp \
+    src/cpp/thread/gamethread.cpp
 
 HEADERS += \
     src/cpp/gui/mainwindow.hpp \
@@ -41,7 +43,9 @@ HEADERS += \
     src/cpp/game/boardmanager.hpp \
     src/cpp/file/filemanager.hpp \
     src/cpp/file/boarddata.hpp \
-    src/cpp/static/boardsize.hpp
+    src/cpp/static/boardsize.hpp \
+    src/cpp/gui/labelcell.hpp \
+    src/cpp/thread/gamethread.hpp
 
 FORMS += \
     src/forms/mainwindow.ui

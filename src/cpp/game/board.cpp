@@ -3,20 +3,6 @@
 #include "board.hpp"
 #include "../static/neighborhoodtype.hpp"
 
-#include <iostream> //TODO delete this
-using namespace std; //TODO delete this
-
-void Board::print() {
-    for(int i=0; i<height; i++) {
-        for(int j=0; j<width; j++) {
-            string str = fields[i][j].getIsAlive() ? "X" : ".";
-            cout << str;
-        }
-        cout << endl;
-    }
-    cout << endl;
-}
-
 Board::Board()
 {
     this->height = 20;

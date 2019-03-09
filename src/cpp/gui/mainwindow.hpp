@@ -5,6 +5,8 @@
 #include <QThread>
 
 #include "../game/boardmanager.hpp"
+#include "labelcell.hpp"
+#include "../thread/gamethread.hpp"
 
 namespace Ui {
 class MainWindow;
@@ -17,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    void revertField(int h, int w);
 
 private slots:
     void on_radioVonN_released();
@@ -32,21 +35,17 @@ private slots:
     void on_buttonStartStop_released();
 
 private:
-    class GameThread : public QThread {
-    public:
-        GameThread(MainWindow *w);
-    protected:
-        void run();
-    private:
-        MainWindow *w;
-    };
-
     BoardManager *manager;
     Ui::MainWindow *ui;
-    bool isRunning;
     GameThread *gameThread;
+    QVector<LabelCell*> cells;
 
     void setComponentsEnabled(bool enabled);
+    void createView();
+    void updateView();
+
+public slots:
+    void onUpdate();
 };
 
 #endif // MAINWINDOW_H

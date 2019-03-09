@@ -17,7 +17,6 @@ public:
     bool isFieldAlive(int h, int w);
     int getHeight();
     int getWidth();
-    void print(); //TODO delete
 
 private:
     int height, width;

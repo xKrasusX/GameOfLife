@@ -19,6 +19,10 @@ void BoardManager::revertBoard() {
     board->revert();
 }
 
+void BoardManager::revertField(int h, int w) {
+    board->revertField(h, w);
+}
+
 void BoardManager::randomizeBoard() {
     board->randomize();
 }
@@ -48,6 +52,18 @@ bool BoardManager::readBoardFromFile(std::string path) {
 void BoardManager::saveBoardToFile(std::string path) {
     BoardData *boardData = setBoardDataWithBoard();
     fileManager->saveToFile(boardData, path);
+}
+
+int BoardManager::getHeight() {
+    return board->getHeight();
+}
+
+int BoardManager::getWidth() {
+    return board->getWidth();
+}
+
+bool BoardManager::getIsFieldAlive(int h, int w) {
+    return board->isFieldAlive(h, w);
 }
 
 Board *BoardManager::getBoard() {

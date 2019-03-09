@@ -11,13 +11,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     manager = new BoardManager();
-    isRunning = false;
+    createView();
     ui->labelError->setStyleSheet("QLabel {color: red;}");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::revertField(int h, int w) {
+    ui->labelError->clear();
+    manager->revertField(h, w);
+    updateView();
 }
 
 void MainWindow::on_radioVonN_released()
@@ -36,35 +42,35 @@ void MainWindow::on_buttonClear_released()
 {
     ui->labelError->clear();
     manager->clearBoard();
-    manager->getBoard()->print();
+    updateView();
 }
 
 void MainWindow::on_buttonRevert_released()
 {
     ui->labelError->clear();
     manager->revertBoard();
-    manager->getBoard()->print();
+    updateView();
 }
 
 void MainWindow::on_buttonRandomize_released()
 {
     ui->labelError->clear();
     manager->randomizeBoard();
-    manager->getBoard()->print();
+    updateView();
 }
 
 void MainWindow::on_spinBoxHeight_editingFinished()
 {
     ui->labelError->clear();
     manager->changeBoardHeight(ui->spinBoxHeight->value());
-    manager->getBoard()->print();
+    createView();
 }
 
 void MainWindow::on_spinBoxWidth_editingFinished()
 {
     ui->labelError->clear();
     manager->changeBoardWidth(ui->spinBoxWidth->value());
-    manager->getBoard()->print();
+    createView();
 }
 
 void MainWindow::on_buttonLoad_released()
@@ -74,9 +80,9 @@ void MainWindow::on_buttonLoad_released()
         bool readSuccess = manager->readBoardFromFile(path);
         if(readSuccess) {
             ui->labelError->clear();
-            ui->spinBoxHeight->setValue(manager->getBoard()->getHeight());
-            ui->spinBoxWidth->setValue(manager->getBoard()->getWidth());
-            manager->getBoard()->print();
+            ui->spinBoxHeight->setValue(manager->getHeight());
+            ui->spinBoxWidth->setValue(manager->getWidth());
+            createView();
         } else {
             ui->labelError->setText("Invalid input file");
         }
@@ -96,38 +102,24 @@ void MainWindow::on_buttonPlusOne_released()
 {
     ui->labelError->clear();
     manager->updateBoard();
-    manager->getBoard()->print();
+    updateView();
 }
 
 void MainWindow::on_buttonStartStop_released()
 {
     ui->labelError->clear();
-    if(!isRunning) {
+    if(ui->buttonStartStop->text() == "Start") {
         ui->buttonStartStop->setText("Stop");
         setComponentsEnabled(false);
-        isRunning = true;
-        repaint();
-        gameThread = new MainWindow::GameThread(this);
+        gameThread = new GameThread();
+        connect(gameThread, SIGNAL(update()), this, SLOT(onUpdate()));
         gameThread->start();
     } else {
-        isRunning = false;
         gameThread->terminate();
         gameThread->~GameThread();
         ui->buttonStartStop->setText("Start");
         setComponentsEnabled(true);
         repaint();
-    }
-}
-
-MainWindow::GameThread::GameThread(MainWindow *w) {
-    this->w = w;
-}
-
-void MainWindow::GameThread::run() {
-    while(w->isRunning) {
-        w->manager->updateBoard();
-        w->manager->getBoard()->print();
-        msleep(500);
     }
 }
 
@@ -142,4 +134,30 @@ void MainWindow::setComponentsEnabled(bool enabled) {
     ui->buttonRandomize->setEnabled(enabled);
     ui->spinBoxHeight->setEnabled(enabled);
     ui->spinBoxWidth->setEnabled(enabled);
+}
+
+void MainWindow::createView() {
+    for(const auto label: cells){
+        delete label;
+    }
+    cells.clear();
+
+    for(int i=0; i<manager->getHeight(); i++) {
+        for(int j=0; j<manager->getWidth(); j++) {
+            LabelCell *cell= new LabelCell(i, j, manager->getIsFieldAlive(i, j) ? Qt::black : Qt::white, this);
+            cells.push_back(cell);
+            ui->gridLayout->addWidget(cell, i, j);
+        }
+    }
+}
+
+void MainWindow::updateView() {
+    for(int i=0; i<manager->getHeight(); i++)
+        for(int j=0; j<manager->getWidth(); j++)
+            static_cast<LabelCell*> (ui->gridLayout->itemAtPosition(i, j)->widget())->setColor(manager->getIsFieldAlive(i, j) ? Qt::black : Qt::white);
+}
+
+void MainWindow::onUpdate() {
+    manager->updateBoard();
+    updateView();
 }

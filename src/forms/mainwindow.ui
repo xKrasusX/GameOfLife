@@ -239,7 +239,11 @@
       <height>500</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout"/>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>1</number>
+     </property>
+    </layout>
    </widget>
    <widget class="QSpinBox" name="spinBoxHeight">
     <property name="geometry">
