@@ -43,6 +43,7 @@ private:
     void setComponentsEnabled(bool enabled);
     void createView();
     void updateView();
+    void setCellsEnabled(bool enabled);
 
 public slots:
     void onUpdate();

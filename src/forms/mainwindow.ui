@@ -107,7 +107,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Height (max 99):</string>
+     <string>Height (max 50):</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelWidth">
@@ -120,7 +120,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Width (max 99):</string>
+     <string>Width (max 50):</string>
     </property>
    </widget>
    <widget class="QLabel" name="labelSetting">
@@ -240,6 +240,9 @@
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout">
+     <property name="sizeConstraint">
+      <enum>QLayout::SetMinAndMaxSize</enum>
+     </property>
      <property name="spacing">
       <number>1</number>
      </property>
@@ -257,6 +260,9 @@
     <property name="minimum">
      <number>1</number>
     </property>
+    <property name="maximum">
+     <number>50</number>
+    </property>
     <property name="value">
      <number>20</number>
     </property>
@@ -272,6 +278,9 @@
     </property>
     <property name="minimum">
      <number>1</number>
+    </property>
+    <property name="maximum">
+     <number>50</number>
     </property>
     <property name="value">
      <number>20</number>

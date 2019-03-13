@@ -116,10 +116,9 @@ void MainWindow::on_buttonStartStop_released()
         gameThread->start();
     } else {
         gameThread->terminate();
-        gameThread->~GameThread();
+        delete gameThread;
         ui->buttonStartStop->setText("Start");
         setComponentsEnabled(true);
-        repaint();
     }
 }
 
@@ -134,6 +133,9 @@ void MainWindow::setComponentsEnabled(bool enabled) {
     ui->buttonRandomize->setEnabled(enabled);
     ui->spinBoxHeight->setEnabled(enabled);
     ui->spinBoxWidth->setEnabled(enabled);
+    ui->gridLayout->setEnabled(enabled);
+    setCellsEnabled(enabled);
+    repaint();
 }
 
 void MainWindow::createView() {
@@ -160,4 +162,10 @@ void MainWindow::updateView() {
 void MainWindow::onUpdate() {
     manager->updateBoard();
     updateView();
+}
+
+void MainWindow::setCellsEnabled(bool enabled) {
+    for(int i=0; i<manager->getHeight(); i++)
+        for(int j=0; j<manager->getWidth(); j++)
+           ui->gridLayout->itemAtPosition(i, j)->widget()->setEnabled(enabled);
 }

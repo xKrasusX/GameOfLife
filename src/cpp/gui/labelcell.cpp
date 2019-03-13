@@ -7,6 +7,7 @@ LabelCell::LabelCell(int h, int w, QColor color, QWidget *parent)
     this->w = w;
     this->parent = parent;
     setColor(this->color = color);
+    setFixedSize(9, 9);
 }
 
 void LabelCell::setColor(QColor c) {
