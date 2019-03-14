@@ -35,16 +35,16 @@ SOURCES += \
     src/cpp/thread/gamethread.cpp
 
 HEADERS += \
-    src/cpp/gui/mainwindow.hpp \
-    src/cpp/game/board.hpp \
-    src/cpp/static/neighborhoodtype.hpp \
-    src/cpp/game/boardmanager.hpp \
-    src/cpp/file/filemanager.hpp \
-    src/cpp/file/boarddata.hpp \
-    src/cpp/static/boardsize.hpp \
-    src/cpp/gui/labelcell.hpp \
-    src/cpp/thread/gamethread.hpp \
-    src/cpp/templates/pair.hpp
+    src/cpp/file/boarddata.h \
+    src/cpp/file/filemanager.h \
+    src/cpp/game/board.h \
+    src/cpp/game/boardmanager.h \
+    src/cpp/gui/labelcell.h \
+    src/cpp/gui/mainwindow.h \
+    src/cpp/static/boardsize.h \
+    src/cpp/static/neighborhoodtype.h \
+    src/cpp/templates/pair.h \
+    src/cpp/thread/gamethread.h
 
 FORMS += \
     src/forms/mainwindow.ui

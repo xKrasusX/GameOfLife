@@ -1,5 +1,5 @@
-#include "labelcell.hpp"
-#include "mainwindow.hpp"
+#include "labelcell.h"
+#include "mainwindow.h"
 
 LabelCell::LabelCell(int h, int w, QColor color, QWidget *parent)
 {

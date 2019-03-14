@@ -1,7 +1,7 @@
 #include <fstream>
 
-#include "filemanager.hpp"
-#include "../static/boardsize.hpp"
+#include "filemanager.h"
+#include "../static/boardsize.h"
 
 FileManager::FileManager() {
 }

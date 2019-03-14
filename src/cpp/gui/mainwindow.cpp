@@ -1,9 +1,9 @@
 #include <QFileDialog>
 #include <string>
 
-#include "mainwindow.hpp"
+#include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "../static/neighborhoodtype.hpp"
+#include "../static/neighborhoodtype.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),

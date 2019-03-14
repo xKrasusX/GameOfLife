@@ -1,4 +1,4 @@
-#include "gamethread.hpp"
+#include "gamethread.h"
 
 GameThread::GameThread(QObject *parent) :
     QThread (parent)

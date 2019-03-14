@@ -1,8 +1,8 @@
 #include <list>
 #include <utility>
 
-#include "boardmanager.hpp"
-#include "../static/neighborhoodtype.hpp"
+#include "boardmanager.h"
+#include "../static/neighborhoodtype.h"
 
 BoardManager::BoardManager() {
     board = new Board();
@@ -39,9 +39,8 @@ void BoardManager::changeBoardWidth(int width) {
     board->changeSize(board->getHeight(), width);
 }
 
-Board *BoardManager::updateBoard() {
+void BoardManager::updateBoard() {
     board->updateNextStep(neighborhoodType);
-    return board;
 }
 
 bool BoardManager::readBoardFromFile(std::string path) {
@@ -69,10 +68,6 @@ int BoardManager::getWidth() {
 
 bool BoardManager::getIsFieldAlive(int h, int w) {
     return board->isFieldAlive(h, w);
-}
-
-Board *BoardManager::getBoard() {
-    return board;
 }
 
 void BoardManager::setNeighborhoodType(int neighborhoodType) {

@@ -1,7 +1,7 @@
 #include <cstdlib>
 
-#include "board.hpp"
-#include "../static/neighborhoodtype.hpp"
+#include "board.h"
+#include "../static/neighborhoodtype.h"
 
 Board::Board() {
     this->height = 20;

@@ -1,4 +1,4 @@
-#include "boarddata.hpp"
+#include "boarddata.h"
 
 BoardData::BoardData() {
 }
