@@ -9,6 +9,7 @@ class BoardData
 
 public:
     BoardData();
+    ~BoardData();
     void addAliveCell(int h, int w);
     int getHeight();
     void setHeight(int height);

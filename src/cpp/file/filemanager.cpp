@@ -3,9 +3,7 @@
 #include "filemanager.hpp"
 #include "../static/boardsize.hpp"
 
-FileManager::FileManager()
-{
-
+FileManager::FileManager() {
 }
 
 BoardData *FileManager::readFromFile(std::string path) {
@@ -32,10 +30,11 @@ BoardData *FileManager::readFromFile(std::string path) {
         line++;
     }
 
-    if(line == 0 || !file.eof())
-        isCorrect = false;
-
-    return isCorrect ? boardData : NULL;
+    if(line == 0 || !file.eof()) {
+        delete boardData;
+        return NULL;
+    }
+    return boardData;
 }
 
 void FileManager::saveToFile(BoardData *boardData, std::string path) {

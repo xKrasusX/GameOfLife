@@ -4,11 +4,15 @@
 #include "boardmanager.hpp"
 #include "../static/neighborhoodtype.hpp"
 
-BoardManager::BoardManager()
-{
+BoardManager::BoardManager() {
     board = new Board();
     neighborhoodType = NeighborhoodType::MOORE;
     fileManager = new FileManager();
+}
+
+BoardManager::~BoardManager() {
+    delete board;
+    delete fileManager;
 }
 
 void BoardManager::clearBoard() {
@@ -52,6 +56,7 @@ bool BoardManager::readBoardFromFile(std::string path) {
 void BoardManager::saveBoardToFile(std::string path) {
     BoardData *boardData = setBoardDataWithBoard();
     fileManager->saveToFile(boardData, path);
+    delete boardData;
 }
 
 int BoardManager::getHeight() {
@@ -75,6 +80,7 @@ void BoardManager::setNeighborhoodType(int neighborhoodType) {
 }
 
 void BoardManager::setBoardWithBoardData(BoardData *boardData) {
+    delete board;
     board = new Board();
     board->changeSize(boardData->getHeight(), boardData->getWidth());
     for(const auto& p : boardData->getAliveCells())

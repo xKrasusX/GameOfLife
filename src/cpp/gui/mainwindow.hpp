@@ -44,6 +44,7 @@ private:
     void createView();
     void updateView();
     void setCellsEnabled(bool enabled);
+    void deleteCells();
 
 public slots:
     void onUpdate();

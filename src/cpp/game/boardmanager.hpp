@@ -10,6 +10,7 @@ class BoardManager
 
 public:
     BoardManager();
+    ~BoardManager();
     void clearBoard();
     void revertBoard();
     void revertField(int h, int w);

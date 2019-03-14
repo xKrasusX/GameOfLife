@@ -6,6 +6,7 @@ class Board
 
 public:
     Board();
+    ~Board();
     void changeSize(int height, int width);
     void makeEmpty();
     void revert();
@@ -24,6 +25,7 @@ private:
     bool getRandomBool();
     bool **calculateStateChanges(int neighborhoodType);
     int countAliveNeighbors(int h, int w, int neighborhoodType);
+    void deleteFields();
 };
 
 #endif

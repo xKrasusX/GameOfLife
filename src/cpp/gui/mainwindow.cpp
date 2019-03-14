@@ -18,6 +18,8 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+    delete manager;
+    deleteCells();
 }
 
 void MainWindow::revertField(int h, int w) {
@@ -75,11 +77,11 @@ void MainWindow::on_spinBoxWidth_editingFinished()
 
 void MainWindow::on_buttonLoad_released()
 {
+    ui->labelError->clear();
     std::string path = QFileDialog::getOpenFileName(this, "Load from file", "C:/", "*.txt").toStdString();
     if(!path.empty()) {
         bool readSuccess = manager->readBoardFromFile(path);
         if(readSuccess) {
-            ui->labelError->clear();
             ui->spinBoxHeight->setValue(manager->getHeight());
             ui->spinBoxWidth->setValue(manager->getWidth());
             createView();
@@ -139,9 +141,7 @@ void MainWindow::setComponentsEnabled(bool enabled) {
 }
 
 void MainWindow::createView() {
-    for(const auto label: cells){
-        delete label;
-    }
+    deleteCells();
     cells.clear();
 
     for(int i=0; i<manager->getHeight(); i++) {
@@ -168,4 +168,9 @@ void MainWindow::setCellsEnabled(bool enabled) {
     for(int i=0; i<manager->getHeight(); i++)
         for(int j=0; j<manager->getWidth(); j++)
            ui->gridLayout->itemAtPosition(i, j)->widget()->setEnabled(enabled);
+}
+
+void MainWindow::deleteCells() {
+    for(const auto label: cells)
+        delete label;
 }

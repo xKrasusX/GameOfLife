@@ -1,8 +1,11 @@
 #include "boarddata.hpp"
 
-BoardData::BoardData()
-{
+BoardData::BoardData() {
+}
 
+BoardData::~BoardData() {
+    for(const auto p: aliveCells)
+        delete p;
 }
 
 void BoardData::addAliveCell(int h, int w) {

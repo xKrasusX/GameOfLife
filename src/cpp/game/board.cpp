@@ -3,11 +3,14 @@
 #include "board.hpp"
 #include "../static/neighborhoodtype.hpp"
 
-Board::Board()
-{
+Board::Board() {
     this->height = 20;
     this->width = 20;
     fillWithDeadCells();
+}
+
+Board::~Board() {
+    deleteFields();
 }
 
 void Board::changeSize(int height, int width)
@@ -27,6 +30,9 @@ void Board::changeSize(int height, int width)
             if(j < currentW)
                 fields[i][j] = currentFields[i][j];
     }
+    for(int i=0; i<currentH; i++)
+        delete[] currentFields[i];
+    delete[] currentFields;
 }
 
 void Board::makeEmpty() {
@@ -53,10 +59,14 @@ void Board::randomize() {
 
 void Board::updateNextStep(int neighborhoodType) {
     bool **stateChanges = calculateStateChanges(neighborhoodType);
-    for(int i=0; i<height; i++)
+    for(int i=0; i<height; i++) {
         for(int j=0; j<width; j++)
             if(stateChanges[i][j])
                 revertField(i, j);
+    }
+    for(int i=0; i<height; i++)
+        delete[] stateChanges[i];
+    delete[] stateChanges;
 }
 
 bool Board::isFieldAlive(int h, int w) {
@@ -121,4 +131,10 @@ int Board::countAliveNeighbors(int h, int w, int neighborhoodType) {
         if(fields[hAfter][wAfter])    aliveNeighbors++;
     }
     return aliveNeighbors;
+}
+
+void Board::deleteFields() {
+    for(int i=0; i<height; i++)
+            delete[] fields[i];
+    delete[] fields;
 }
