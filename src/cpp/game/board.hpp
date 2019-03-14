@@ -1,8 +1,6 @@
 #ifndef BOARD_HPP
 #define BOARD_HPP
 
-#include "field.hpp"
-
 class Board
 {
 
@@ -20,7 +18,7 @@ public:
 
 private:
     int height, width;
-    Field **fields;
+    bool **fields;
 
     void fillWithDeadCells();
     bool getRandomBool();

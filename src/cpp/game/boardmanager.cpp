@@ -78,7 +78,7 @@ void BoardManager::setBoardWithBoardData(BoardData *boardData) {
     board = new Board();
     board->changeSize(boardData->getHeight(), boardData->getWidth());
     for(const auto& p : boardData->getAliveCells())
-        board->revertField(p.first, p.second);
+        board->revertField(p->getX(), p->getY());
 }
 
 BoardData *BoardManager::setBoardDataWithBoard() {

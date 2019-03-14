@@ -6,7 +6,7 @@ BoardData::BoardData()
 }
 
 void BoardData::addAliveCell(int h, int w) {
-    aliveCells.push_back(std::make_pair(h, w));
+    aliveCells.push_back(new Pair<int>(h, w));
 }
 
 int BoardData::getHeight() {
@@ -25,6 +25,6 @@ void BoardData::setWidth(int width) {
     this->width = width;
 }
 
-std::list<std::pair<int, int>> BoardData::getAliveCells() {
+std::list<Pair<int>*> BoardData::getAliveCells() {
     return aliveCells;
 }

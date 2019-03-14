@@ -28,7 +28,6 @@ SOURCES += \
     src/cpp/gui/mainwindow.cpp \
     src/cpp/main.cpp \
     src/cpp/game/board.cpp \
-    src/cpp/game/field.cpp \
     src/cpp/game/boardmanager.cpp \
     src/cpp/file/filemanager.cpp \
     src/cpp/file/boarddata.cpp \
@@ -38,14 +37,14 @@ SOURCES += \
 HEADERS += \
     src/cpp/gui/mainwindow.hpp \
     src/cpp/game/board.hpp \
-    src/cpp/game/field.hpp \
     src/cpp/static/neighborhoodtype.hpp \
     src/cpp/game/boardmanager.hpp \
     src/cpp/file/filemanager.hpp \
     src/cpp/file/boarddata.hpp \
     src/cpp/static/boardsize.hpp \
     src/cpp/gui/labelcell.hpp \
-    src/cpp/thread/gamethread.hpp
+    src/cpp/thread/gamethread.hpp \
+    src/cpp/templates/pair.hpp
 
 FORMS += \
     src/forms/mainwindow.ui

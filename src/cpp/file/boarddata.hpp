@@ -2,7 +2,7 @@
 #define BOARDDATA_HPP
 
 #include <list>
-#include <utility>
+#include "../templates/pair.hpp"
 
 class BoardData
 {
@@ -14,11 +14,11 @@ public:
     void setHeight(int height);
     int getWidth();
     void setWidth(int width);
-    std::list<std::pair<int, int>> getAliveCells();
+    std::list<Pair<int>*> getAliveCells();
 
 private:
     int height, width;
-    std::list<std::pair<int, int>> aliveCells;
+    std::list<Pair<int>*> aliveCells;
 };
 
 #endif // BOARDDATA_HPP

@@ -42,5 +42,5 @@ void FileManager::saveToFile(BoardData *boardData, std::string path) {
     std::ofstream file(path);
     file << boardData->getHeight() << " " << boardData->getWidth() << std::endl;
     for(const auto& p : boardData->getAliveCells())
-        file << p.first << " " << p.second << std::endl;
+        file << p->getX() << " " << p->getY() << std::endl;
 }

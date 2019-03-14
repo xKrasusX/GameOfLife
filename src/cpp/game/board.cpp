@@ -12,7 +12,7 @@ Board::Board()
 
 void Board::changeSize(int height, int width)
 {
-    Field **currentFields = fields;
+    bool **currentFields = fields;
     int currentH = this->height;
     int currentW = this->width;
 
@@ -25,14 +25,14 @@ void Board::changeSize(int height, int width)
             break;
         for(int j=0; j<width; j++)
             if(j < currentW)
-                fields[i][j].setIsAlive(currentFields[i][j].getIsAlive());
+                fields[i][j] = currentFields[i][j];
     }
 }
 
 void Board::makeEmpty() {
     for(int i=0; i<height; i++)
         for(int j=0; j<width; j++)
-            fields[i][j].setIsAlive(false);
+            fields[i][j] = false;
 }
 
 void Board::revert() {
@@ -42,13 +42,13 @@ void Board::revert() {
 }
 
 void Board::revertField(int h, int w) {
-    fields[h][w].setIsAlive(!fields[h][w].getIsAlive());
+    fields[h][w] = !fields[h][w];
 }
 
 void Board::randomize() {
     for(int i=0; i<height; i++)
         for(int j=0; j<width; j++)
-            fields[i][j].setIsAlive(getRandomBool());
+            fields[i][j] = getRandomBool();
 }
 
 void Board::updateNextStep(int neighborhoodType) {
@@ -60,7 +60,7 @@ void Board::updateNextStep(int neighborhoodType) {
 }
 
 bool Board::isFieldAlive(int h, int w) {
-    return fields[h][w].getIsAlive();
+    return fields[h][w];
 }
 
 int Board::getHeight() {
@@ -72,9 +72,12 @@ int Board::getWidth() {
 }
 
 void Board::fillWithDeadCells() {
-    fields = new Field*[height];
-    for(int i=0; i<height; i++)
-        fields[i] = new Field[width];
+    fields = new bool*[height];
+    for(int i=0; i<height; i++) {
+        fields[i] = new bool[width];
+        for(int j=0; j<width; j++)
+            fields[i][j] = false;
+    }
 }
 
 bool Board::getRandomBool() {
@@ -92,7 +95,7 @@ bool **Board::calculateStateChanges(int neighborhoodType) {
     for(int i=0; i<height; i++) {
         for(int j=0; j<width; j++) {
             int aliveN = countAliveNeighbors(i, j, neighborhoodType);
-            if((!fields[i][j].getIsAlive() && aliveN==3) || (fields[i][j].getIsAlive() && aliveN!=3 && aliveN!=2))
+            if((!fields[i][j] && aliveN==3) || (fields[i][j] && aliveN!=3 && aliveN!=2))
                 stateChanges[i][j] = true;
         }
     }
@@ -106,16 +109,16 @@ int Board::countAliveNeighbors(int h, int w, int neighborhoodType) {
     int wAfter = w==width-1 ? 0 : w+1;
 
     int aliveNeighbors = 0;
-    if(fields[hBefore][w].getIsAlive())        aliveNeighbors++;
-    if(fields[h][wBefore].getIsAlive())        aliveNeighbors++;
-    if(fields[h][wAfter].getIsAlive())         aliveNeighbors++;
-    if(fields[hAfter][w].getIsAlive())         aliveNeighbors++;
+    if(fields[hBefore][w])        aliveNeighbors++;
+    if(fields[h][wBefore])        aliveNeighbors++;
+    if(fields[h][wAfter])         aliveNeighbors++;
+    if(fields[hAfter][w])         aliveNeighbors++;
 
     if(neighborhoodType == NeighborhoodType::MOORE) {
-        if(fields[hBefore][wBefore].getIsAlive())  aliveNeighbors++;
-        if(fields[hBefore][wAfter].getIsAlive())   aliveNeighbors++;
-        if(fields[hAfter][wBefore].getIsAlive())   aliveNeighbors++;
-        if(fields[hAfter][wAfter].getIsAlive())    aliveNeighbors++;
+        if(fields[hBefore][wBefore])  aliveNeighbors++;
+        if(fields[hBefore][wAfter])   aliveNeighbors++;
+        if(fields[hAfter][wBefore])   aliveNeighbors++;
+        if(fields[hAfter][wAfter])    aliveNeighbors++;
     }
     return aliveNeighbors;
 }
